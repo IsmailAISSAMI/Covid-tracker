@@ -7,6 +7,7 @@ try:
     client = MongoClient('localhost',27017)
     db = client.covid
     globalData =  db.globalData
+    paysData =  db.paysData
     print("connection success")
 except:
     print("error!")
@@ -19,7 +20,14 @@ try:
             db['globalData'].drop()
             print('collection globalData droped!')
         globalData.insert_many(json.load(f))
-    print("import success!")
+    print("Import globalData successfully!")
+
+    with open('paysData.json', 'rb') as f:
+        if db['paysData']:
+            db['paysData'].drop()
+            print('collection paysData droped!')
+        paysData.insert_many(json.load(f))
+    print("Import paysData successfully!")
 except:
     print("Error: import data to dbase")
 
