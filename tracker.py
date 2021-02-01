@@ -13,7 +13,6 @@ except:
     print("error!")
 
 # Import JSON
-
 try: 
     with open('globalData.json', 'rb') as f:
         if db['globalData']:
@@ -31,6 +30,7 @@ try:
 except:
     print("Error: import data to dbase")
 
+# Display worldwide statistics of covid in the last 31 days
 def display_all(globalData):
     for result in globalData.find():
         pprint(result)
@@ -52,9 +52,17 @@ def display_MonthStatistic(globalData):
     print("- TauxInfection:", firstDay['TauxInfection']-lastDay['TauxInfection'])
     print("- TauxDeces:", firstDay['TauxDeces']-lastDay['TauxDeces'])
     print("- TauxGuerison:", firstDay['TauxGuerison']-lastDay['TauxGuerison'])
-    
+
+def getLimitPaysData(paysData, nLimit):
+    count=0
+    for result in paysData.find().limit(nLimit):
+        count += 1
+        print("----result n° ", count)
+        pprint(result)
+
     
 # Methods
 #display_all(globalData)
 #display_infection(globalData)
-display_MonthStatistic(globalData)
+#display_MonthStatistic(globalData)
+getLimitPaysData(paysData, 10)
