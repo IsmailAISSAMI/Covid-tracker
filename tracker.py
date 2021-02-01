@@ -57,12 +57,20 @@ def getLimitPaysData(paysData, nLimit):
     count=0
     for result in paysData.find().limit(nLimit):
         count += 1
-        print("----result n° ", count)
+        print("----Result N° ", count)
         pprint(result)
 
+def topTenInfectedCountries(paysData, date):
+    count=0
+    for result in paysData.find({'Date': date}).sort("Infection",-1).limit(10):
+        count += 1
+        print("\n---- N° ", count)
+        pprint(result) 
     
 # Methods
 #display_all(globalData)
 #display_infection(globalData)
 #display_MonthStatistic(globalData)
-getLimitPaysData(paysData, 10)
+#getLimitPaysData(paysData, 200)
+data = paysData.find_one({}, {'Date':1, '_id':0})
+topTenInfectedCountries(paysData, data['Date'])
